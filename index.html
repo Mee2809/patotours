@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pato Tours | Experiencias Únicas en Uyuni & Los Lípez</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0284c7',
+                            darkBlue: '#0f172a',
+                            gold: '#f59e0b',
+                            accent: '#06b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.85) 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-blue selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center shadow-md border-2 border-brand-blue">
+                        <i class="fa-solid fa-feather-pointed text-brand-darkBlue text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-tight text-slate-900">PATO<span class="text-brand-blue">TOURS</span></span>
+                        <span class="block text-[10px] font-bold tracking-widest text-amber-500 uppercase">Duck Tours - Uyuni</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 font-semibold text-sm text-slate-600">
+                    <a href="#diferenciador" class="hover:text-brand-blue transition">¿Por qué Pato Tours?</a>
+                    <a href="#paquetes" class="hover:text-brand-blue transition">Nuestros Tours</a>
+                    <a href="#experiencia" class="hover:text-brand-blue transition">Experiencia VIP</a>
+                    <a href="#oficinas" class="hover:text-brand-blue transition">Oficinas</a>
+                    <a href="#contacto" class="bg-brand-blue hover:bg-sky-600 text-white px-5 py-2.5 rounded-full font-bold shadow-lg shadow-sky-500/30 transition transform hover:scale-105">
+                        <i class="fa-solid fa-paper-plane mr-2"></i>Reservar Ahora
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-700 hover:text-brand-blue focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#diferenciador" class="block py-2 font-medium text-slate-700 hover:text-brand-blue">¿Por qué Pato Tours?</a>
+            <a href="#paquetes" class="block py-2 font-medium text-slate-700 hover:text-brand-blue">Nuestros Tours</a>
+            <a href="#experiencia" class="block py-2 font-medium text-slate-700 hover:text-brand-blue">Experiencia VIP</a>
+            <a href="#oficinas" class="block py-2 font-medium text-slate-700 hover:text-brand-blue">Oficinas</a>
+            <a href="#contacto" class="block text-center bg-brand-blue text-white py-3 rounded-xl font-bold">Reservar Ahora</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-20 min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1920&auto=format&fit=crop" 
+                 alt="Salar de Uyuni Pato Tours" 
+                 class="w-full h-full object-cover object-center scale-105 transition-transform duration-10000 hover:scale-100"
+                 onerror="this.src='https://placehold.co/1920x1080/0f172a/ffffff?text=Salar+de+Uyuni+Pato+Tours'">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center text-white py-24">
+            <div class="inline-flex items-center space-x-2 bg-amber-400/20 border border-amber-400/40 backdrop-blur-md px-4 py-1.5 rounded-full text-amber-300 font-semibold text-xs md:text-sm uppercase tracking-wider mb-6">
+                <i class="fa-solid fa-star text-amber-400"></i>
+                <span>Atención y Servicio 100% Personalizado</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none mb-6">
+                Descubre Uyuni con el <br class="hidden md:block"/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-sky-300 to-cyan-400">
+                    Cuidado que Mereces
+                </span>
+            </h1>
+
+            <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto font-light mb-10 leading-relaxed">
+                En <strong>Pato Tours</strong> adaptamos cada itinerario a tus ritmos y gustos. Flota de camionetas 4x4 modernas, gastronomía en el salar y la mejor atención personalizada de Bolivia.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#paquetes" class="w-full sm:w-auto px-8 py-4 bg-brand-blue hover:bg-sky-500 text-white font-bold rounded-2xl shadow-xl shadow-sky-500/30 transition transform hover:-translate-y-1">
+                    Explorar Ofertas y Rutas <i class="fa-solid fa-compass ml-2"></i>
+                </a>
+                <a href="#diferenciador" class="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md text-white font-semibold rounded-2xl transition">
+                    Conocer Nuestro Factor Diferencial
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-white/10 text-center">
+                <div>
+                    <span class="block text-3xl md:text-4xl font-extrabold text-amber-400">6 Pas.</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-medium">Máximo por Vehículo VIP</span>
+                </div>
+                <div>
+                    <span class="block text-3xl md:text-4xl font-extrabold text-sky-400">100%</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-medium">Personalizado</span>
+                </div>
+                <div>
+                    <span class="block text-3xl md:text-4xl font-extrabold text-amber-400">4x4</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-medium">Toyota Land Cruiser</span>
+                </div>
+                <div>
+                    <span class="block text-3xl md:text-4xl font-extrabold text-sky-400">+10k</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider font-medium">Turistas Felices</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FACTOR DIFERENCIADOR (SECCIÓN CLAVE) -->
+    <section id="diferenciador" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-blue font-extrabold text-sm uppercase tracking-widest">Lo que nos hace únicos</span>
+                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mt-2">
+                    Nuestro Factor Diferenciador: <br/>
+                    <span class="text-amber-500">Atención Personalizada de Verdad</span>
+                </h2>
+                <p class="text-slate-600 mt-4 text-lg">
+                    A diferencia de las agencias masivas, en Pato Tours cada viaje se diseña pensando en la comodidad, el ritmo y la seguridad individual de nuestros pasajeros.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8 card-hover relative group">
+                    <div class="w-16 h-16 bg-amber-500/10 text-amber-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:bg-amber-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-users-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Grupos Reducidos y Exclusivos</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Solo 6 pasajeros como máximo por unidad móvil. Garantizamos asientos amplios, ventanillas libres para fotografías e interacción directa con tu guía asignado.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8 card-hover relative group border-2 border-brand-blue/20">
+                    <div class="absolute -top-4 right-6 bg-brand-blue text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                        Exclusivo Pato Tours
+                    </div>
+                    <div class="w-16 h-16 bg-brand-blue/10 text-brand-blue rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:bg-brand-blue group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Fotografía con Perspectiva e Accesorios</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Nuestros choferes-guías son expertos capacitados en fotografía creativa en el salar. Incluimos utilería, sillas decorativas y tiempo ilimitado para capturar recuerdos memorables.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8 card-hover relative group">
+                    <div class="w-16 h-16 bg-cyan-500/10 text-cyan-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:bg-cyan-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Servicio Gastronómico Gourmet</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Almuerzos en medio del salar con mesas preparadas, vajilla real y opciones vegetarianas, veganas y sin gluten adaptadas previamente según las preferencias de cada turista.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Banner Informativo -->
+            <div class="mt-16 bg-gradient-to-r from-slate-900 via-brand-darkBlue to-slate-900 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+                <div class="space-y-3 max-w-2xl">
+                    <h4 class="text-2xl font-bold text-amber-400">¿Tienes requerimientos especiales o fechas flexibles?</h4>
+                    <p class="text-slate-300 text-sm md:text-base">
+                        En nuestras oficinas de La Paz y Copacabana diseñamos tu itinerario totalmente a medida. Salidas diarias coordinadas puntualmente a horas 10:00 AM.
+                    </p>
+                </div>
+                <a href="#contacto" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold px-8 py-4 rounded-2xl text-sm transition transform hover:scale-105 shrink-0">
+                    Hablar con un Asesor VIP
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- OFERTAS Y PAQUETES DE TOURS -->
+    <section id="paquetes" class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-blue font-extrabold text-sm uppercase tracking-widest">Destinos Imperdibles</span>
+                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mt-2">Nuestras Ofertas y Circuitos</h2>
+                <p class="text-slate-600 mt-4 text-lg">
+                    Explora los paisajes más impresionantes de Sudamérica con la máxima comodidad y seguridad en nuestras unidades 4x4.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Paquete 1: Salar de Uyuni -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 card-hover flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1589556264800-08ae9e129a8c?q=80&w=800&auto=format&fit=crop" 
+                             alt="Salar de Uyuni Tour" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/0284c7/ffffff?text=Salar+de+Uyuni'">
+                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-900 text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
+                            Más Popular
+                        </span>
+                        <div class="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-lg text-xs font-semibold">
+                            <i class="fa-regular fa-clock text-amber-400 mr-1"></i> Duración: 8 Horas
+                        </div>
+                    </div>
+
+                    <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-slate-900">Salar de Uyuni Clásico</h3>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Recorrido completo de un día completo visitando el cementerio de trenes, Colchani, los Ojos del Salar, Isla Incahuasi y puesta de sol mágica con brindis.
+                            </p>
+                            <ul class="space-y-2 text-xs font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Salida programada: 10:00 AM (Retorno 18:00 PM)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Almuerzo gourmet en el salar incluido</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Sesión de fotos creativas con accesorios</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block font-medium">Por persona</span>
+                                <span class="text-2xl font-black text-brand-blue">$55 USD</span>
+                            </div>
+                            <button onclick="openModal('Salar de Uyuni - 8 Horas')" class="px-5 py-2.5 bg-slate-900 hover:bg-brand-blue text-white rounded-xl text-sm font-bold transition">
+                                Reservar Cupo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paquete 2: Laguna Colorada -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 card-hover flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" 
+                             alt="Laguna Colorada Pato Tours" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/e11d48/ffffff?text=Laguna+Colorada'">
+                        <span class="absolute top-4 left-4 bg-rose-500 text-white text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
+                            Aventura 24 Horas
+                        </span>
+                        <div class="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-lg text-xs font-semibold">
+                            <i class="fa-regular fa-clock text-amber-400 mr-1"></i> Duración: 24 Horas
+                        </div>
+                    </div>
+
+                    <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-slate-900">Expedición Laguna Colorada</h3>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Travesía intensiva al corazón de la Reserva Eduardo Avaroa. Avistamiento de tres especies de flamencos rosa, desierto de Siloli y alojamiento VIP térmico.
+                            </p>
+                            <ul class="space-y-2 text-xs font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Salida: 10:00 AM (Retorno día siguiente 10:00 AM)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Pensión completa (Almuerzo, Cena, Desayuno)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Calefacción en hospedaje y mantas térmicas</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block font-medium">Por persona</span>
+                                <span class="text-2xl font-black text-brand-blue">$130 USD</span>
+                            </div>
+                            <button onclick="openModal('Laguna Colorada - 24 Horas')" class="px-5 py-2.5 bg-slate-900 hover:bg-brand-blue text-white rounded-xl text-sm font-bold transition">
+                                Reservar Cupo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paquete 3: Laguna Verde -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 card-hover flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop" 
+                             alt="Laguna Verde y Licancabur" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                             onerror="this.src='https://placehold.co/800x600/059669/ffffff?text=Laguna+Verde'">
+                        <span class="absolute top-4 left-4 bg-emerald-500 text-white text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
+                            Gran Tour Lípez
+                        </span>
+                        <div class="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-lg text-xs font-semibold">
+                            <i class="fa-regular fa-clock text-amber-400 mr-1"></i> Duración: 36 Horas
+                        </div>
+                    </div>
+
+                    <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-slate-900">Ruta Completa Laguna Verde</h3>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                El circuito definitivo: Salar, Laguna Colorada, Geysers Sol de Mañana, Aguas Termales de Polques y las espectaculares faldas del Volcán Licancabur.
+                            </p>
+                            <ul class="space-y-2 text-xs font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Salida: 10:00 AM (Retorno día sig. 22:00 PM)</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Bañera de aguas termales nocturna</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Guía bilingüe capacitado y chofer experto</li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block font-medium">Por persona</span>
+                                <span class="text-2xl font-black text-brand-blue">$185 USD</span>
+                            </div>
+                            <button onclick="openModal('Laguna Verde - 36 Horas')" class="px-5 py-2.5 bg-slate-900 hover:bg-brand-blue text-white rounded-xl text-sm font-bold transition">
+                                Reservar Cupo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- OFICINAS DE RECLUTAMIENTO & CONTACTO -->
+    <section id="oficinas" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-blue font-extrabold text-sm uppercase tracking-widest">Puntos de Atención</span>
+                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mt-2">Nuestras Oficinas Oficiales</h2>
+                <p class="text-slate-600 mt-4 text-lg">
+                    Visítanos en nuestras agencias de reclutamiento y asesoría directa antes de iniciar tu aventura hacia Uyuni.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Oficina 1: La Paz -->
+                <div class="bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-400 text-slate-900 rounded-2xl flex items-center justify-center text-xl font-bold mb-6">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Sucursal La Paz</h3>
+                        <p class="text-amber-600 text-xs font-bold uppercase tracking-wider mb-4">Calle de las Brujas</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Ubicada en el corazón turístico cultural de La Paz. Nuestro equipo especializado te atenderá con calidez e información clara sobre cada paquete.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 text-xs font-semibold text-slate-500 space-y-2">
+                        <p><i class="fa-solid fa-phone text-brand-blue mr-2"></i> +591 2 2489012</p>
+                        <p><i class="fa-solid fa-envelope text-brand-blue mr-2"></i> lapaz@patotours.bo</p>
+                    </div>
+                </div>
+
+                <!-- Oficina 2: Copacabana -->
+                <div class="bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-sky-500 text-white rounded-2xl flex items-center justify-center text-xl font-bold mb-6">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Sucursal Copacabana</h3>
+                        <p class="text-sky-600 text-xs font-bold uppercase tracking-wider mb-4">Plaza Central</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Ideal para turistas que ingresan desde Perú o visitan el Lago Titicaca. Planifica y conecta tu viaje directo al Salar con asistencia personalizada.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 text-xs font-semibold text-slate-500 space-y-2">
+                        <p><i class="fa-solid fa-phone text-brand-blue mr-2"></i> +591 2 8622145</p>
+                        <p><i class="fa-solid fa-envelope text-brand-blue mr-2"></i> copacabana@patotours.bo</p>
+                    </div>
+                </div>
+
+                <!-- Central: Uyuni -->
+                <div class="bg-brand-darkBlue text-white rounded-3xl p-8 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-400 text-slate-900 rounded-2xl flex items-center justify-center text-xl font-bold mb-6">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Central Operativa</h3>
+                        <p class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">Ciudad de Uyuni</p>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Desde aquí despegan nuestras modernas camionetas 4x4. Garaje propio, revisión técnica diaria de vehículos y centro de mando de expediciones.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-700 text-xs font-medium text-slate-400 space-y-2">
+                        <p><i class="fa-solid fa-phone text-amber-400 mr-2"></i> +591 2 6932010</p>
+                        <p><i class="fa-solid fa-envelope text-amber-400 mr-2"></i> operaciones@patotours.bo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO DE RESERVA / CONSULTA -->
+    <section id="contacto" class="py-24 bg-slate-900 text-white relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 md:p-12 shadow-2xl">
+                <div class="text-center mb-10">
+                    <span class="text-amber-400 font-extrabold text-xs uppercase tracking-widest">Reserva en Línea</span>
+                    <h2 class="text-3xl font-black mt-2">Planifica tu Experiencia Personalizada</h2>
+                    <p class="text-slate-400 text-sm mt-2">Déjanos tus datos y un asesor especializado te enviará la propuesta adecuada a tus tiempos.</p>
+                </div>
+
+                <form id="booking-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nombre Completo</label>
+                            <input type="text" required placeholder="Ej: Maria Lopez" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Correo Electrónico</label>
+                            <input type="email" required placeholder="maria@ejemplo.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Paquete de Interés</label>
+                            <select id="form-package" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                                <option value="Salar de Uyuni - 8 Horas">Salar de Uyuni (8 hrs)</option>
+                                <option value="Laguna Colorada - 24 Horas">Laguna Colorada (24 hrs)</option>
+                                <option value="Laguna Verde - 36 Horas">Laguna Verde (36 hrs)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">N° de Pasajeros</label>
+                            <input type="number" min="1" max="6" value="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Oficina Cercana</label>
+                            <select class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                                <option value="La Paz">La Paz (Calle Brujas)</option>
+                                <option value="Copacabana">Copacabana (Plaza Central)</option>
+                                <option value="Directo Uyuni">Atención Online / Uyuni</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Preferencia Personalizada (Dieta, fotografías, horario)</label>
+                        <textarea rows="3" placeholder="Cuéntanos si requieres menú vegetariano, asistencia especial o accesorios de fotos..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-900 font-extrabold py-4 rounded-xl shadow-lg transition transform hover:scale-[1.01]">
+                        Solicitar Cotización Personalizada
+                    </button>
+                </form>
+
+                <!-- Feedback Message -->
+                <div id="form-success" class="hidden mt-6 bg-emerald-900/50 border border-emerald-500/50 text-emerald-200 p-4 rounded-xl text-center text-sm font-semibold">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-lg mr-2"></i>
+                    ¡Gracias por tu mensaje! Tu reserva ha sido asignada a uno de nuestros ejecutivos VIP. Te contactaremos pronto.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-slate-900">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <span class="text-white font-bold tracking-tight text-lg">PATO TOURS BOLIVIA</span>
+            </div>
+            
+            <p class="text-xs text-slate-500 text-center">
+                © 2026 Pato Tours (Duck Tours). Todos los derechos reservados. Servicio Turístico de Calidad Garantizada.
+            </p>
+
+            <div class="flex space-x-4 text-slate-400">
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-facebook text-xl"></i></a>
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-amber-400 transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL JS LOGIC -->
+    <script>
+        // Toggle Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Modal Action
+        function openModal(packageName) {
+            const selectEl = document.getElementById('form-package');
+            if (selectEl) {
+                selectEl.value = packageName;
+            }
+            const contactSec = document.getElementById('contacto');
+            contactSec.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Handle Form Submit
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const successBox = document.getElementById('form-success');
+            const form = document.getElementById('booking-form');
+            
+            successBox.classList.remove('hidden');
+            form.reset();
+
+            setTimeout(() => {
+                successBox.classList.add('hidden');
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
