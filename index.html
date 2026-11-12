@@ -441,18 +441,18 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nombre Completo</label>
-                            <input type="text" required placeholder="Ej: Maria Lopez" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                            <input type="text" name="nombre" required maxlength="100" placeholder="Ej: Maria Lopez" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Correo Electrónico</label>
-                            <input type="email" required placeholder="maria@ejemplo.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                            <input type="email" name="email" required maxlength="150" placeholder="maria@ejemplo.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Paquete de Interés</label>
-                            <select id="form-package" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Destino</label>
+                            <select id="form-package" name="destino" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
                                 <option value="Salar de Uyuni - 8 Horas">Salar de Uyuni (8 hrs)</option>
                                 <option value="Laguna Colorada - 24 Horas">Laguna Colorada (24 hrs)</option>
                                 <option value="Laguna Verde - 36 Horas">Laguna Verde (36 hrs)</option>
@@ -460,11 +460,15 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">N° de Pasajeros</label>
-                            <input type="number" min="1" max="6" value="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                            <input type="number" name="pasajeros" required min="1" max="6" value="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Fecha del Tour</label>
+                            <input type="date" id="form-fecha" name="fecha" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue [color-scheme:dark]">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Oficina Cercana</label>
-                            <select class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
+                            <select name="oficina" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue">
                                 <option value="La Paz">La Paz (Calle Brujas)</option>
                                 <option value="Copacabana">Copacabana (Plaza Central)</option>
                                 <option value="Directo Uyuni">Atención Online / Uyuni</option>
@@ -474,12 +478,13 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Preferencia Personalizada (Dieta, fotografías, horario)</label>
-                        <textarea rows="3" placeholder="Cuéntanos si requieres menú vegetariano, asistencia especial o accesorios de fotos..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue"></textarea>
+                        <textarea name="notas" rows="3" maxlength="1000" placeholder="Cuéntanos si requieres menú vegetariano, asistencia especial o accesorios de fotos..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-blue"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-900 font-extrabold py-4 rounded-xl shadow-lg transition transform hover:scale-[1.01]">
-                        Solicitar Cotización Personalizada
+                    <button type="submit" id="form-submit" class="w-full disabled:opacity-60 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-900 font-extrabold py-4 rounded-xl shadow-lg transition transform hover:scale-[1.01]">
+                        Reservar mi Tour
                     </button>
+                    <p id="form-error" class="hidden text-red-300 text-sm text-center"></p>
                 </form>
 
                 <!-- Feedback Message -->
@@ -502,7 +507,7 @@
             </div>
             
             <p class="text-xs text-slate-500 text-center">
-                © 2026 Pato Tours (Duck Tours). Todos los derechos reservados. Servicio Turístico de Calidad Garantizada.
+                © 2026 Pato Tours (Duck Tours). Todos los derechos reservados. Servicio Turístico de Calidad Garantizada. · <a href="admin.html" class="hover:text-amber-400">Admin</a>
             </p>
 
             <div class="flex space-x-4 text-slate-400">
@@ -533,17 +538,40 @@
         }
 
         // Handle Form Submit
-        function handleFormSubmit(e) {
+        // Reservas: se guardan en Supabase (tabla reservas, solo inserción pública)
+        const SUPABASE_URL = 'https://wfytfaidjgxnspjmxozk.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable__rgbSPPLE8GbwtCJ41WPtw_tDw2oo2J';
+        const fechaEl = document.getElementById('form-fecha');
+        fechaEl.min = new Date().toLocaleDateString('en-CA'); // hoy, formato YYYY-MM-DD
+
+        async function handleFormSubmit(e) {
             e.preventDefault();
             const successBox = document.getElementById('form-success');
-            const form = document.getElementById('booking-form');
-            
-            successBox.classList.remove('hidden');
-            form.reset();
+            const errorBox = document.getElementById('form-error');
+            const btn = document.getElementById('form-submit');
+            const form = e.target;
+            const data = Object.fromEntries(new FormData(form));
+            data.pasajeros = Number(data.pasajeros);
 
-            setTimeout(() => {
-                successBox.classList.add('hidden');
-            }, 6000);
+            btn.disabled = true;
+            errorBox.classList.add('hidden');
+            try {
+                const res = await fetch(SUPABASE_URL + '/rest/v1/reservas', {
+                    method: 'POST',
+                    headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+                    body: JSON.stringify(data)
+                });
+                if (!res.ok) throw new Error(await res.text());
+                form.reset();
+                successBox.classList.remove('hidden');
+                setTimeout(() => successBox.classList.add('hidden'), 8000);
+            } catch (err) {
+                console.error(err);
+                errorBox.textContent = 'No pudimos registrar tu reserva. Intenta de nuevo o usa el chat.';
+                errorBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+            }
         }
     </script>
 

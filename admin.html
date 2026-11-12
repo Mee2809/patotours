@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Panel Admin | Pato Tours</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+    <header class="bg-slate-900 text-white">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="./" class="font-extrabold text-lg">PATO<span class="text-sky-400">TOURS</span> <span class="text-slate-400 font-semibold text-sm ml-2">Panel Admin</span></a>
+            <button id="logout" class="hidden text-sm text-slate-300 hover:text-white"><i class="fa-solid fa-right-from-bracket mr-1"></i>Salir</button>
+        </div>
+    </header>
+
+    <!-- Login -->
+    <main id="login-view" class="hidden max-w-sm mx-auto mt-16 px-4">
+        <form id="login-form" class="bg-white rounded-2xl shadow p-6 space-y-4">
+            <h1 class="text-xl font-extrabold">Ingreso de administrador</h1>
+            <input name="email" type="email" required placeholder="Correo" autocomplete="username" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-sm">
+            <input name="password" type="password" required placeholder="Contraseña" autocomplete="current-password" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-sm">
+            <button class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl">Entrar</button>
+            <p id="login-error" class="hidden text-red-600 text-sm"></p>
+        </form>
+    </main>
+
+    <!-- Panel -->
+    <main id="admin-view" class="hidden max-w-6xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" id="stats"></div>
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <h1 class="text-2xl font-extrabold mr-auto">Reservas</h1>
+            <select id="filtro" class="border border-slate-300 rounded-xl px-3 py-2 text-sm bg-white">
+                <option value="">Todos los estados</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="confirmada">Confirmadas</option>
+                <option value="cancelada">Canceladas</option>
+            </select>
+            <button id="recargar" class="bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+        </div>
+        <p id="panel-error" class="hidden text-red-600 text-sm mb-4"></p>
+        <div class="bg-white rounded-2xl shadow overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50 text-left text-xs uppercase tracking-wider text-slate-500">
+                    <tr><th class="p-3">Fecha tour</th><th class="p-3">Destino</th><th class="p-3">Cliente</th><th class="p-3">Pax</th><th class="p-3">Oficina</th><th class="p-3">Notas</th><th class="p-3">Estado</th></tr>
+                </thead>
+                <tbody id="tabla" class="divide-y divide-slate-100"></tbody>
+            </table>
+            <p id="vacio" class="hidden p-6 text-center text-slate-500">No hay reservas.</p>
+        </div>
+    </main>
+
+    <script>
+        const db = supabase.createClient('https://wfytfaidjgxnspjmxozk.supabase.co', 'sb_publishable__rgbSPPLE8GbwtCJ41WPtw_tDw2oo2J');
+        const $ = id => document.getElementById(id);
+        const ESTADOS = ['pendiente', 'confirmada', 'cancelada'];
+        let reservas = [];
+
+        function mostrar(logueado) {
+            $('login-view').classList.toggle('hidden', logueado);
+            $('admin-view').classList.toggle('hidden', !logueado);
+            $('logout').classList.toggle('hidden', !logueado);
+            if (logueado) cargar();
+        }
+
+        async function cargar() {
+            $('panel-error').classList.add('hidden');
+            const { data, error } = await db.from('reservas').select('*').order('fecha', { ascending: true });
+            if (error) { $('panel-error').textContent = 'Error: ' + error.message; $('panel-error').classList.remove('hidden'); return; }
+            reservas = data;
+            render();
+        }
+
+        // Todo dato del cliente se inserta con textContent (nunca innerHTML) para evitar inyección de código.
+        function celda(tr, texto, extra = '') {
+            const td = document.createElement('td');
+            td.className = 'p-3 align-top ' + extra;
+            td.textContent = texto ?? '';
+            tr.appendChild(td);
+            return td;
+        }
+
+        function render() {
+            const f = $('filtro').value;
+            const lista = reservas.filter(r => !f || r.estado === f);
+            const tbody = $('tabla');
+            tbody.replaceChildren();
+            for (const r of lista) {
+                const tr = document.createElement('tr');
+                celda(tr, r.fecha, 'whitespace-nowrap font-semibold');
+                celda(tr, r.destino);
+                const c = celda(tr, r.nombre, 'font-semibold');
+                const em = document.createElement('div');
+                em.className = 'text-slate-500 font-normal';
+                em.textContent = r.email;
+                c.appendChild(em);
+                celda(tr, r.pasajeros);
+                celda(tr, r.oficina);
+                celda(tr, r.notas, 'max-w-xs text-slate-600');
+                const sel = document.createElement('select');
+                sel.className = 'border rounded-lg px-2 py-1 text-sm ' + ({ pendiente: 'bg-amber-50', confirmada: 'bg-emerald-50', cancelada: 'bg-red-50' })[r.estado];
+                for (const e of ESTADOS) sel.add(new Option(e, e, false, e === r.estado));
+                sel.onchange = () => cambiarEstado(r, sel.value);
+                celda(tr, '').appendChild(sel);
+                tbody.appendChild(tr);
+            }
+            $('vacio').classList.toggle('hidden', lista.length > 0);
+
+            const pax = reservas.filter(r => r.estado === 'confirmada').reduce((s, r) => s + r.pasajeros, 0);
+            const stats = [
+                ['Total', reservas.length],
+                ['Pendientes', reservas.filter(r => r.estado === 'pendiente').length],
+                ['Confirmadas', reservas.filter(r => r.estado === 'confirmada').length],
+                ['Pasajeros confirmados', pax],
+            ];
+            $('stats').replaceChildren(...stats.map(([k, v]) => {
+                const d = document.createElement('div');
+                d.className = 'bg-white rounded-2xl shadow p-4';
+                d.innerHTML = '<div class="text-xs uppercase tracking-wider text-slate-500"></div><div class="text-2xl font-extrabold"></div>';
+                d.children[0].textContent = k;
+                d.children[1].textContent = v;
+                return d;
+            }));
+        }
+
+        async function cambiarEstado(r, estado) {
+            const { error } = await db.from('reservas').update({ estado }).eq('id', r.id);
+            if (error) { alert('No se pudo actualizar: ' + error.message); return cargar(); }
+            r.estado = estado;
+            render();
+        }
+
+        $('login-form').onsubmit = async e => {
+            e.preventDefault();
+            const { email, password } = Object.fromEntries(new FormData(e.target));
+            const { error } = await db.auth.signInWithPassword({ email, password });
+            $('login-error').textContent = error ? 'Correo o contraseña incorrectos.' : '';
+            $('login-error').classList.toggle('hidden', !error);
+            if (!error) mostrar(true);
+        };
+        $('logout').onclick = async () => { await db.auth.signOut(); mostrar(false); };
+        $('filtro').onchange = render;
+        $('recargar').onclick = cargar;
+        db.auth.getSession().then(({ data }) => mostrar(!!data.session));
+    </script>
+</body>
+</html>
