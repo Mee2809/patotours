@@ -3,7 +3,9 @@
  * Uso:
  *   <script src="https://mee2809.github.io/patotours/chat/patotours-chat.js"></script>
  *   <script>PatoChat.mount({ scriptUrl: "https://script.google.com/macros/s/.../exec" });</script>
- * Opciones: scriptUrl (obligatoria), color, nombre, bienvenida, sugerencias.
+ * Opciones: scriptUrl (obligatoria salvo que pases enviar), color, nombre, bienvenida, sugerencias,
+ *   enviar(historial) → Promise<texto>  (para usar otro backend, p. ej. google.script.run),
+ *   id (separa el historial guardado de distintos chats).
  */
 (function () {
   var montado = false;
@@ -11,11 +13,21 @@
   function mount(config) {
     config = config || {};
     if (montado) return;
-    if (!config.scriptUrl) { console.error('PatoChat: falta scriptUrl'); return; }
+    if (!config.scriptUrl && !config.enviar) { console.error('PatoChat: falta scriptUrl'); return; }
     if (!document.body) { document.addEventListener('DOMContentLoaded', function () { mount(config); }); return; }
     montado = true;
 
     var SCRIPT_URL = config.scriptUrl;
+    var CLAVE_HISTORIAL = 'pato_chat_' + (config.id || 'publico');
+    var pedir = config.enviar || function (historial) {
+      return fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },  // evita el preflight CORS
+        body: JSON.stringify({ accion: 'chat', mensajes: historial })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (out) { if (!out.ok) throw new Error(out.error); return out.respuesta; });
+    };
     var COLOR = config.color || '#0284c7';
     var NOMBRE = config.nombre || 'Pato · Asistente';
     var BIENVENIDA = config.bienvenida || '¡Hola! Soy Pato 🤖, el asistente de Pato Tours. Te cuento sobre nuestros tours al Salar de Uyuni, Laguna Colorada y Laguna Verde: precios, fechas y cupos. ¿Qué te gustaría saber?';
@@ -70,9 +82,9 @@
     var $ = function (s) { return root.querySelector(s); };
     $('.cab b').textContent = NOMBRE;
     var historial = [];
-    try { historial = JSON.parse(sessionStorage.getItem('pato_chat') || '[]'); } catch (e) { historial = []; }
+    try { historial = JSON.parse(sessionStorage.getItem(CLAVE_HISTORIAL) || '[]'); } catch (e) { historial = []; }
 
-    function guardar() { try { sessionStorage.setItem('pato_chat', JSON.stringify(historial.slice(-20))); } catch (e) {} }
+    function guardar() { try { sessionStorage.setItem(CLAVE_HISTORIAL, JSON.stringify(historial.slice(-20))); } catch (e) {} }
 
     function burbujaMsg(quien, texto) {
       var d = document.createElement('div');
@@ -111,17 +123,12 @@
       burbujaMsg('yo', texto);
       var espera = burbujaMsg('bot escribiendo', 'Pato está escribiendo...');
       $('.enviar').disabled = true;
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },  // evita el preflight CORS
-        body: JSON.stringify({ accion: 'chat', mensajes: historial })
-      })
-        .then(function (r) { return r.json(); })
-        .then(function (out) {
-          if (!out.ok) throw new Error(out.error);
+      Promise.resolve()
+        .then(function () { return pedir(historial.slice()); })
+        .then(function (respuesta) {
           espera.className = 'msg bot';
-          espera.textContent = out.respuesta;
-          historial.push({ role: 'assistant', content: out.respuesta });
+          espera.textContent = respuesta;
+          historial.push({ role: 'assistant', content: respuesta });
           guardar();
         })
         .catch(function (err) {
